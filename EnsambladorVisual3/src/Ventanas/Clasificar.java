@@ -3,31 +3,40 @@ package Ventanas;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Clasificar {
 
 	public void Divide(String st){
-		String aux="";
-		String com="";
+		String[] aux;
+		String com;
 		String etiq="";
 		String codo="";
 		
+	
 		LinkedList ltCom = new LinkedList();
 		LinkedList ltEtiq = new LinkedList();
 		LinkedList ltCodo = new LinkedList();
-		StringTokenizer tok2 = new StringTokenizer(st);
-	while(tok2.hasMoreTokens())
+	
+		aux=st.split("\n");
+		
+	for(int i=0;i<aux.length;i++)
 	{	
 		
-		if(tok2.nextToken().matches(";.*"))
+		if(aux[i].matches(".*;.*"))
 		{
-			com=tok2.nextToken();
-			ltCom.add(com);
-		}
 		
+		String comAux=aux[i];	
+		com=comAux.substring(comAux.indexOf(";"),comAux.length());	
+		ltCom.add(com);
+		}
+		if(aux[i].matches("^[A-Z].*[a-z0-9][_]"))
+		{
+			ltEtiq.add(aux[i]);
+		}
 	}
-	System.out.println("Result "+ltCom.getFirst());	
-	System.out.println("Result "+ltCom.get(1));	
+	
 	}
 }
 	
