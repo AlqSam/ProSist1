@@ -15,7 +15,8 @@ public class CMaestra {
 		String t = sl.Select();
 		Clasificar cf = new Clasificar();
 		cf.Divide(t);
-		System.out.println(t);				
+		System.out.println(t);	
+	
 		
 	}
 	
@@ -25,9 +26,12 @@ public class CMaestra {
 		JFileChooser j = new JFileChooser();
 		j.showOpenDialog(j);
 		String rout = j.getSelectedFile().getAbsolutePath();
+		
 		String read="";
 		
 		f= new File(rout);
+		
+		
 		try{
 			
 			FileReader fr =new FileReader(f);
