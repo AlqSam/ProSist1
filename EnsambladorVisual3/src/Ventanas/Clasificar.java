@@ -39,7 +39,7 @@ public class Clasificar {
 			ltEtiq.add(etiq);
 		}
 		
-		if (aux[i].matches("[\t| ]."))
+		if (aux[i].matches("^[\t| ]+[a-z]+"))
 		{	String auxCodo=aux[i];
 			codo=auxCodo;
 			ltCodo.add(codo);
