@@ -1,0 +1,3 @@
+Linea		Etiqueta		Codop		Operando 
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+0		[ETQ1, Null, klos, Null, add]		[COD, ETQ1	COD	OPER1		;COMENT , , yd, klos	yd	d54f5, 44 	fsd5	fd4f, add       kdslkdl	564d, ;jdsjfkdjfk, 	end]		Null		
