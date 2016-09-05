@@ -1,1 +1,1 @@
-ETQ1		COD		ETQ1	COD	OPER1		;COMENT 		Null
+Null

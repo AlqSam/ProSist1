@@ -1,11 +1,14 @@
 package Ventanas;
-
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  * @author Leonardo D. Gtz. Medellin.
@@ -15,56 +18,72 @@ import javax.swing.JFileChooser;
  * */
 
 public class CMaestra {
-
-	public static void main(String[] args) {
-		
-		CMaestra sl = new CMaestra();
-		String t = sl.Select();
-		Clasificar cf = new Clasificar();
-		cf.Divide(t);
-		System.out.println(t);	
-	
-		
-	}
-	/**
-	 * Se carga un archivo atravez de la clase JfileChooser
-	 * 
-	 * */
-	private String Select(){
+	public String rout;
+	public String result;
+	public void CargaArchivo(){
 		
 		File f;
 		JFileChooser j = new JFileChooser();
 		j.showOpenDialog(j);
-		String rout = j.getSelectedFile().getAbsolutePath();
+		 rout = j.getSelectedFile().getAbsolutePath();
 		
 		String read="";
 		
 		f= new File(rout);
 		
-		/**Si en la lectura en cuentra un end suspende la carga del archivo */
+
 		try{
 			
 			FileReader fr =new FileReader(f);
 			BufferedReader br = new BufferedReader(fr);
 			String aux;
 			
-			while((aux=br.readLine())!=null)
+			while((aux= br.readLine())!=null)
 			{
 				if(aux.equalsIgnoreCase("end")){
-					read= read+"\t"+aux+"\n";	
-					break;				
+						break;				
 			}else
-				read=read+aux+"\n";
+				read= read+aux+"\n";
 			}
+			
 			br.close();
 			fr.close();
 			
+			Clasificar wk = new Clasificar();
+			
+			String ver= wk.Divide(read);
+			System.out.println(ver);
+			
+			File fl;
+			
+			FileWriter grabar;
+			String rutaNew=rout;
+			fl= new File(rutaNew.substring(0,rutaNew.length()-3)+"INST");
+			grabar = new FileWriter(fl);
+			BufferedWriter bw = new BufferedWriter(grabar);
+			PrintWriter Cod = new PrintWriter(bw);
+			
+			Cod.println(ver);
+			
+			Cod.close();
+			bw.close();
+			System.out.println(read);
+			
 		}catch(IOException e){
 			
-		System.out.print("Error de apertura  de archivo.");
+			
+			
+		System.out.print("Error");
+		
+		JOptionPane.showMessageDialog(null,"Error de apertura IO lectura de archivo.");
 				}
 		
-			return read;
+		
+		
+	
+		
+		
+		
 	}
 
 }
