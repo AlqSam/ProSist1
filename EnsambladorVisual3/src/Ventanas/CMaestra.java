@@ -20,6 +20,8 @@ import javax.swing.JOptionPane;
 public class CMaestra {
 	public String rout;
 	public String result;
+	public final String lineFormat ="Linea		Etiqueta		Codop		Operando ";	
+	public final String lineFormat2="::::::::::::::::::::::::::::::::::::::::::::::::::";
 	public void CargaArchivo(){
 		
 		File f;
@@ -52,7 +54,7 @@ public class CMaestra {
 			Clasificar wk = new Clasificar();
 			
 			String ver= wk.Divide(read);
-			System.out.println(ver);
+			//System.out.println(ver);
 			
 			File fl;
 			
@@ -62,12 +64,13 @@ public class CMaestra {
 			grabar = new FileWriter(fl);
 			BufferedWriter bw = new BufferedWriter(grabar);
 			PrintWriter Cod = new PrintWriter(bw);
-			
+			Cod.println(lineFormat);
+			Cod.println(lineFormat2);
 			Cod.println(ver);
 			
 			Cod.close();
 			bw.close();
-			System.out.println(read);
+		//	System.out.println(read);
 			
 		}catch(IOException e){
 			

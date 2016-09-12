@@ -34,6 +34,14 @@ public class Clasificar {
 		LinkedList ltOper = new LinkedList();
 		LinkedList lau	  = new LinkedList();
 		LinkedList ltErrors = new LinkedList();
+		
+		Pattern patronCom = Pattern.compile("(;.*)");
+		
+		Pattern patronE = Pattern.compile("^([A-Za-z][A-Za-z0-9_]{1,8}[\t| ]*)");
+		Pattern patronCod = Pattern.compile("([\t| ]+[A-Za-z]{1,5}[\t| ]*)");
+		Pattern patronOper = Pattern.compile("([\t| ]+[A-Za-z0-9]{1,}[\t| ])");
+		Pattern patronL	= Pattern.compile("(^[\t ])([\t ])([\t ])");
+		
 		/**
 		 * Se aplica split para para separa el string obtenido del jfilechooser
 		 * @param String aux.
@@ -50,39 +58,31 @@ public class Clasificar {
 		/**
 		 * @param reciben un string inical y se compara en los diversos casos.
 		 * */
-		if(aux[i].matches(".*;.*"))
+		
+		Matcher matcherCom = patronCom.matcher(aux[i]);
+		Matcher matcherE = patronE.matcher(aux[i]);
+		Matcher matcherCod = patronCod.matcher(aux[i]);
+		Matcher matcherOper = patronOper.matcher(aux[i]);
+		Matcher matcherL = patronL.matcher(aux[i]);
+
+		if(matcherL.find())
 		{
 		
-		String comAux=aux[i];	
-		com=comAux.substring(comAux.indexOf(";"),comAux.length());	
-		ltCom.add(com);
-		
-	
 		}
 		
-		if(aux[i].matches("^[A-Za-z]+[A-Za-z0-9_]{1,8}[\t| ].*"))
-		{	String[] auxEtq=aux[i].split("\t| ");
-			etiq=auxEtq[0];
+		if(matcherCom.find())
+		{
+		com=matcherCom.group(1);	
+		ltCom.add(com);
+		}else{
+			ltCom.add("");
+		}
+		
+		if(matcherE.find())
+		{	
+			etiq= matcherE.group();
 			ltEtiq.add(etiq);
-			String eta=auxEtq[1];
-			String eta2=auxEtq[2];
-			
-			if(eta.matches("[A-Za-z]{1,5}[\t| ]*")){
-			ltCodo.add(eta);
-			
-			}else {
-				String e1=eta+"No cumple con las reglas de los Codops ";
-				ltErrors.add(e1);	}
-			
-			if(eta2.matches("[A-Za-z0-9$%@_]+[\t|\n]")){
-			ltOper.add(eta2);	
-			
-			}else {
-				String e2=eta+"No cumple con las reglas de los Codops ";
-				ltErrors.add(e2);
-			}
-			
-			
+					
 		
 		}else {
 			ltEtiq.add("Null");
@@ -90,56 +90,52 @@ public class Clasificar {
 		}
 		
 		
-		if (aux[i].matches("^.*|[\t| ]+[A-Za-z]{1,5}[\t| ]*[\n]*"))
-		{	String auxCodo=aux[i];
+		if (matcherCod.find())
+		{	
 			
-			codo=auxCodo;
+			codo=matcherCod.group();
 			ltCodo.add(codo);
 			
-			String[] auxcodo=aux[i].split("\t| ");
-			String ct=auxcodo[0];
-			
-			if(ct.matches("[A-Za-z0-9$%@_\\.]+[\n]"))
-			{
-				ltOper.add(ct);
-				
-			}
-			else {
-				String e3=ct+"No cumple con las reglas de los Codops ";
-				ltErrors.add(e3);
-			}
-			
-		
-		}else {
+		}	else {
 			ltCodo.add("Null");
 			
 		}
-		
-		if (aux[i].matches("^[\t| ]+[A-Za-z0-9$%@_\\.]+[\n]"))
-		{	String auxOper=aux[i];
-			Oper=auxOper;
-			ltOper.add(Oper);
-		
-		
-		}else {
+			
+			if(matcherOper.find())
+			{	Oper=matcherOper.group();
+				ltOper.add(Oper);
+				
+			}else {
 			
 			ltOper.add("NULL");
 		}
 		
-		
+	}
 		ListIterator itEtiq = ltEtiq.listIterator();	
 		ListIterator itcodo = ltCodo.listIterator();	
 		ListIterator itoper = ltOper.listIterator();	
-		while(itEtiq.hasNext()&itcodo.hasNext()&itoper.hasNext()){
-			 result=result+itEtiq.next()+"\t"+itcodo.next()+"\t"+itoper.next()+"\n";
+		ListIterator itcom  = ltCom.listIterator();	
+		/*while(itEtiq.hasNext()){
 			
+			System.out.println(itEtiq.next());
+		}*/
+		int j=0;
+		while(itEtiq.hasNext()&itcodo.hasNext()&itoper.hasNext()&itcom.hasNext()){
+			 result=result+j+"\t"+itEtiq.next()+"\t"+itcodo.next()+"\t"+itoper.next()+"\t"+itcom.next()+"\n";
+			j++;
 		}
 		
+
+		System.out.println(result+"________________________________");
+		System.out.println(ltCom.getFirst());
+		System.out.println(ltEtiq.getFirst());
+		//System.out.println(result);
+		return result;
+		
 		}
-	System.out.println(result+"________________________________");
-	return result;
+
 	}
-}
+
 		
 		
 	
