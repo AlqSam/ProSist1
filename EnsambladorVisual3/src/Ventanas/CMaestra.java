@@ -68,7 +68,7 @@ public class CMaestra {
 			
 		System.out.print("Error");
 		
-		JOptionPane.showMessageDialog(null,"Error de apertura IO lectura de archivo.");
+		JOptionPane.showMessageDialog(null,"Error de apertura IO lectura de archivo. Primario");
 				}
 		
 		

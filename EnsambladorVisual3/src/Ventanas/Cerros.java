@@ -13,12 +13,7 @@ import javax.swing.JOptionPane;
 
 public class Cerros {
 	
-
-	public Cerros() {
 		
-	}
-
-	
 	public String Genera(String []r){
 		
 	String error1="";
@@ -27,7 +22,7 @@ public class Cerros {
 	
 	CMaestra cf = new CMaestra();
 	LinkedList ltErr = new LinkedList();
-	
+	LinkedList ltend = new LinkedList();
 	
 	Pattern patronCom = Pattern.compile("(;.*)");
 	Pattern LineaDeTres = Pattern.compile("^([A-Za-z0-9_]*)[\t| ]*([A-Za-z0-9_]*)[\t| ]*([A-Za-z0-9_]*)");
@@ -52,12 +47,9 @@ public class Cerros {
 					errEt2= ChecaLineaDeTres.group(1);
 					ltErr.add(errEt2+" Etiqueta Invalida inicia con numero");
 				}
-				
-				
+							
 			}
 			
-		
-				
 			}
 			
 		if(ChecaLineaDeTres.group(2).matches("[A-Za-z[[\\.]{0,1}]]{6,}")){
@@ -70,15 +62,18 @@ public class Cerros {
 					errOp2=ChecaLineaDeTres.group(2);
 					ltErr.add(errOp2+" Formato de codigo de operacion invalido ");
 					}
-			
-		}
-		
-		
-		
-				
-		System.out.println(ltErr.getFirst());
-		System.out.println(ltErr.getLast());
-		
+		if(ChecaLineaDeTres.group(2).matches("[A-Za-z[[\\.]{0,1}]]{1,5}")){
+			errOp2=ChecaLineaDeTres.group(2);
+			ltend.add(errOp2);
+			}
+			}
+	if(ltend.contains("end")||ltend.contains("END")){
+		JOptionPane.showMessageDialog(null,"Terminacion con END.");
+	}else{
+			ltErr.add("No se encontro terminacion end");
+			JOptionPane.showMessageDialog(null,"No se encontro END.");
+		}	
+								
 		ListIterator itErr	= ltErr.listIterator();		
 		
 		
@@ -96,9 +91,6 @@ while(itErr.hasNext()){
 }
 	
 	
-		
-		
-		
 	}
 	
 
