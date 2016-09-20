@@ -1,3 +1,5 @@
+package Ventanas;
+
 import java.awt.Container;
 import java.io.*;
 import java.util.Enumeration;
@@ -86,8 +88,8 @@ public class Clasificar {
 		
 		String[]a=LeerTab.split("\n");
 	
-		Pattern Tablatab = Pattern.compile("([\\[A-Za-a0-9\\]]+)\\|([\\[A-Za-a0-9\\]]+)\\|([\\[A-Za-a0-9\\]]+)\\|([\\[A-Za-a0-9\\]]+)\\|([\\[A-Za-a0-9\\]]+)\\|([\\[A-Za-a0-9\\]]+)\\|([\\[A-Za-a0-9\\]]+)");
-		Hashtable<String,TablaOperVo> tablaOperandos= new Hashtable<String,TablaOperVo>();
+		Pattern Tablatab = Pattern.compile("([\\[A-Za-a0-9\\]]+)\\|([\\[A-Za-a0-9\\,\\]]+)\\|([\\[s|n]+)");
+		Hashtable<String,String> tablaOperandos= new Hashtable<String,String>();
 	
 		
 		for(int t=0;t<a.length ;t++){
@@ -95,14 +97,11 @@ public class Clasificar {
 		
 		if(CodigoTab.find()){
 			
-			if(CodigoTab.group(1).matches("[\\[A-Za-a0-9\\]]+")&&CodigoTab.group(3).matches("[\\[A-Za-a0-9\\]]+")){
+			if(CodigoTab.group(1).matches("[\\[A-Za-a0-9\\]]+")&&CodigoTab.group(2).matches("[\\[A-Za-a0-9\\,\\]]+")){
 				clave=CodigoTab.group(1);
-				Modos=CodigoTab.group(3);
-				
-				TablaOperVo tV = new TablaOperVo();
-				
-				tV.setModo(Modos);
-			tablaOperandos.put(clave, tV);	
+				Modos=CodigoTab.group(2);
+								
+			tablaOperandos.put(clave,Modos);	
 		
 		
 		}
@@ -121,6 +120,7 @@ public class Clasificar {
 			System.out.println(i+" Clave: " + key + " -> Valor: " +tablaOperandos.get(key));
 			i++;
 			}
+		System.out.println("Este  "+tablaOperandos.get("SUBA"));
 		
 		/**
 		 * Se aplica split para para separa el string obtenido del jfilechooser
